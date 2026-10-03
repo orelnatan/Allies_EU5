@@ -1,0 +1,28 @@
+# Purchased plugin (its Source folder is already its own repo)
+/Plugins/
+
+# Unreal generated / heavy local data
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Build/
+.vs/
+.idea/
+.vscode/
+
+# Visual Studio
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+*.pdb
+*.obj
+*.ipch
+*.aps
+
+# Editor-only content
+Content/Collections/
+Content/Developers/
