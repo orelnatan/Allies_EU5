@@ -26,3 +26,7 @@ Build/
 # Editor-only content
 Content/Collections/
 Content/Developers/
+
+# Ignore heavy Marketplace asset packs
+Content/MWLandscapeAutoMaterial/
+Content/Palms_Pack_01/
