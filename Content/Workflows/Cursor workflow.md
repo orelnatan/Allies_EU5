@@ -36,15 +36,13 @@ Thank you from advanced
 
 
 Roadmap
-1. On BP_Caterpillar_D7_Dozer, set Unit Icon to Caterpillar_D7_Dozer_Thumbnail.
+1. Create four Gameplay Ability blueprints, one per USA building, and set each Ability Icon to that building's thumbnail.
 
-2. Event-graph only step. In Content/UI/WBP_ControlBar, drive PortraitSlot from SelectedUnits at
-CurrentUnitWidgetIndex, using that unit's Unit Icon.
+2. On BP_Caterpillar_D7_Dozer, add those four abilities to Default Abilities, in this order: Command Center, Barracks, War Factory,
+Supply Center.
 
-3. Press Play, select the dozer, and confirm PortraitSlot shows the dozer thumbnail. Deselect it and confirm the slot
-clears.
+3. Event-graph only step. In Content/UI/WBP_ControlBar, fill CommandSlot_0 onward from the focused unit's Default Abilities, and
+clear every unused slot while leaving the cell in place.
 
-4. Set Unit Icon the same way on the other units and buildings that already have a _Thumbnail texture: Sherman, GMC
-truck, US Supply Center, US Barracks, US Command Center, US War Factory.
-
-5. Press Play, box-select the dozer together with a Sherman, and confirm the portrait shows the Sherman.
+4. Press Play, select the dozer, and confirm those four thumbnails show from the right. Click empty ground and confirm the
+command cells clear without shifting.
