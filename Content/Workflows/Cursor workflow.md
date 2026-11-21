@@ -35,20 +35,16 @@ This way, I can switch you to agent mode and tell you to implement steps 3 and 5
 Thank you from advanced
 
 
-
 Roadmap
+1. On BP_Caterpillar_D7_Dozer, set Unit Icon to Caterpillar_D7_Dozer_Thumbnail.
 
-1. Open BP_Caterpillar_D7_Dozer and confirm it is a child of BP_VehicleUnitBase, with tripo_part_0
-through tripo_part_10 visible on the capsule.
+2. Event-graph only step. In Content/UI/WBP_ControlBar, drive PortraitSlot from SelectedUnits at
+CurrentUnitWidgetIndex, using that unit's Unit Icon.
 
-2. On that same Blueprint, set the team, the Al controller, and the capsule so a click can hit it and a move
-order has a controller to run.
+3. Press Play, select the dozer, and confirm PortraitSlot shows the dozer thumbnail. Deselect it and confirm the slot
+clears.
 
-3. Place one dozer on Tropical Island, sitting on the ground inside the green navigation area.
+4. Set Unit Icon the same way on the other units and buildings that already have a _Thumbnail texture: Sherman, GMC
+truck, US Supply Center, US Barracks, US Command Center, US War Factory.
 
-4. Make the level's Player Start team match the dozer. Team 0 is the spectator, and a spectator can select a
-unit and cannot order it to move. Confirm the level's GameMode is BP_RTSGameMode.
-
-5. Press Play on Tropical Island. Left-click the dozer, then right-click the ground. It should draw a move
-marker and drive there.
-
+5. Press Play, box-select the dozer together with a Sherman, and confirm the portrait shows the Sherman.

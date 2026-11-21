@@ -108,7 +108,18 @@ Open Source: https://github.com/SilvanTeufel/RTSUnitTemplate
 
 After a massive amount of learning and exploring, i learned that this RTS template can save me even 1 year of work, this is a big step for me to build an RTS game..
 
-Now this project "Allies" is my own RTS game, its just a new EU5.8.2 empty "blank" project.
+Now this project "Allies" is my own RTS game, its just a new EU5.8.2 empty "blank" project. The game i wish to develop is something like this:
+
+The game is a strategy RTS game set during World War II...
+
+In terms of experience and gameplay, it draws inspiration from Generals: Zero Hour* (2003).￼￼The atmosphere and narrative are based on real-life events, inspired by *Call of Duty 2* (2005) and, to some extent, *Call of Duty: WWII* (2017). It also draws influence from films such as *Stalingrad(for Russian camping) (2013) and *Fury* (2014) (starring Brad Pitt).
+
+The full game is intended to feature:
+
+- Factions/Armies – The Allies: USA, Great Britain, and Russia; The Axis: Germany, Japan...
+- Skirmish mode
+- Multiplayer
+- Campaigns (similar to *Call of Duty 2* [2005]) – 3 campaigns: USA, Russia, and Great Britain. 
 
 the plugin itself, located under the "Source" folder: Plugins\RTSRPGUn5ea1cf63ca70V9\Source
 
