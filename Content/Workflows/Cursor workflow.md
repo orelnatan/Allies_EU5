@@ -35,42 +35,29 @@ This way, I can switch you to agent mode and tell you to implement steps 3 and 5
 Thank you from advanced
 
 
-Roadmap: the middle panel
 
-1. Create WBP_AbilityButton in Content/UI: a single command button with the names the template expects, styled like your current slots.
 
-2. Event-graph only step: in WBP_AbilityButton, add an OnAbilityButtonClicked event dispatcher fired by the button's OnClicked, and a small SetIcon
-function.
+Roadmap
 
-3. Create WBP_CommandPanel in Content/UI with parent class UnitWidgetSelector, and lay it out in the Designer:
+1. In Content/Bases, create GA_BuildBuilding_Base, a project-owned build ability with parent
+GameplayAbilityBase. Add the WorkAreaClass and ConstructionUnitClass variables and set its Class
+Defaults.
 
-o 12 WBP_AbilityButton named AbilityButtonWidget_@ to AbilityButtonWidget_11;
+2. Event-graph only step: in GA_BuildBuilding_Base, rebuild the template's build logic without the debug
+prints. When the ability activates, it commits. When the cursor hit arrives, it checks that the team can afford
+it, then spawns the ghost (SpawnWorkAreaReplicated) and ends the ability. If the team can't afford it, it plays
+a failure sound and ends the ability.
 
-+ and - page buttons;
+3. In the Command Center folder, create BP_WorkArea_US_Command_Center with parent WorkArea. This is the
+ghost actor: it uses the Command Center mesh with the template's transparent blue material, red when the
+spot isn't allowed, and its BuildingClass is BP_US_Command_Center.
 
-o the four required widgets;
+4. Reparent GA_Build_US_Command_Center to GA_BuildBuilding_Base, then set its Class Defaults:
+WorkAreaClass, ConstructionUnitClass, and ConstructionCost.
 
-o one SelectButtonWidget_0, so the panel doesn't hide itself.
+5. Event-graph only step: in GA_Build_US_Command_Center, delete the two empty events (Event
+ActivateAbility and Event OnEndAbility). Otherwise they'd override the parent's logic and nothing would
+happen.
 
-4. Event-graph only step: in WBP_CommandPanel:
-
-o the Update event sets the 12 icons and tooltips;
-
-o each button click calls ActivateKeyboardAbilitiesOnMultipleUnits;
-
-o the page buttons call AddAbilityIndex;
-
-0 CurrentAbilityButton calls OnCurrentAbilityButtonClicked.
-
-5. In the Designer of WBP_ControlBar, place WBP_CommandPanel in the middle (CommandGrid) section, and collapse (don't delete) the old Border slots so the old
-functions still compile.
-
-6. Event-graph only step: register the HUD the template's way:
-
-0 remove CreateWidget and AddToViewport from BP_RTSCameraPawn's BeginPlay;
-
-o in WBP_ControlBar's PreConstruct, cast the player pawn to ExtendedCameraBase and call SetUnitSelectorWidget (WBP_CommandPanel).
-
-7. In BP_RTSPlayerController Class Defaults, add WBP_ControlBar as element 0 of MainHUDs.
-
-8. Play test:
+6. Play test: select the Dozer and click the Command Center button. The ghost should follow the cursor. Left-
+click places it, and the Dozer should drive over and build. Right-click cancels.
