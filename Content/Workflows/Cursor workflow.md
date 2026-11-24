@@ -35,14 +35,42 @@ This way, I can switch you to agent mode and tell you to implement steps 3 and 5
 Thank you from advanced
 
 
-Roadmap
-1. Create four Gameplay Ability blueprints, one per USA building, and set each Ability Icon to that building's thumbnail.
+Roadmap: the middle panel
 
-2. On BP_Caterpillar_D7_Dozer, add those four abilities to Default Abilities, in this order: Command Center, Barracks, War Factory,
-Supply Center.
+1. Create WBP_AbilityButton in Content/UI: a single command button with the names the template expects, styled like your current slots.
 
-3. Event-graph only step. In Content/UI/WBP_ControlBar, fill CommandSlot_0 onward from the focused unit's Default Abilities, and
-clear every unused slot while leaving the cell in place.
+2. Event-graph only step: in WBP_AbilityButton, add an OnAbilityButtonClicked event dispatcher fired by the button's OnClicked, and a small SetIcon
+function.
 
-4. Press Play, select the dozer, and confirm those four thumbnails show from the right. Click empty ground and confirm the
-command cells clear without shifting.
+3. Create WBP_CommandPanel in Content/UI with parent class UnitWidgetSelector, and lay it out in the Designer:
+
+o 12 WBP_AbilityButton named AbilityButtonWidget_@ to AbilityButtonWidget_11;
+
++ and - page buttons;
+
+o the four required widgets;
+
+o one SelectButtonWidget_0, so the panel doesn't hide itself.
+
+4. Event-graph only step: in WBP_CommandPanel:
+
+o the Update event sets the 12 icons and tooltips;
+
+o each button click calls ActivateKeyboardAbilitiesOnMultipleUnits;
+
+o the page buttons call AddAbilityIndex;
+
+0 CurrentAbilityButton calls OnCurrentAbilityButtonClicked.
+
+5. In the Designer of WBP_ControlBar, place WBP_CommandPanel in the middle (CommandGrid) section, and collapse (don't delete) the old Border slots so the old
+functions still compile.
+
+6. Event-graph only step: register the HUD the template's way:
+
+0 remove CreateWidget and AddToViewport from BP_RTSCameraPawn's BeginPlay;
+
+o in WBP_ControlBar's PreConstruct, cast the player pawn to ExtendedCameraBase and call SetUnitSelectorWidget (WBP_CommandPanel).
+
+7. In BP_RTSPlayerController Class Defaults, add WBP_ControlBar as element 0 of MainHUDs.
+
+8. Play test:
