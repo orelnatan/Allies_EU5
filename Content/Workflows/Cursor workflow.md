@@ -39,25 +39,26 @@ Thank you from advanced
 
 Roadmap
 
-1. In Content/Bases, create GA_BuildBuilding_Base, a project-owned build ability with parent
-GameplayAbilityBase. Add the WorkAreaClass and ConstructionUnitClass variables and set its Class
-Defaults.
+Roadmap
+1. In Content/Bases/Materials, create the master material M_BuildingGhost and set its main properties in the
+Details panel (translucent, lit). No nodes yet.
 
-2. Event-graph only step: in GA_BuildBuilding_Base, rebuild the template's build logic without the debug
-prints. When the ability activates, it commits. When the cursor hit arrives, it checks that the team can afford
-it, then spawns the ghost (SpawnWorkAreaReplicated) and ends the ability. If the team can't afford it, it plays
-a failure sound and ends the ability.
+2. Graph-only step: in M_BuildingGhost, build the node graph. It has texture parameters (BaseColor, Normal,
+Roughness, Metallic), an Opacity scalar, and the red-floor logic: Invalid, InvalidColor and FloorHeight.
+The floor logic compares each pixel's height above the actor's pivot and tints the bottom band red when
+Invalid is 1.
 
-3. In the Command Center folder, create BP_WorkArea_US_Command_Center with parent WorkArea. This is the
-ghost actor: it uses the Command Center mesh with the template's transparent blue material, red when the
-spot isn't allowed, and its BuildingClass is BP_US_Command_Center.
+3. In the Command Center folder, create two material instances of M_BuildingGhost:
+MI_Ghost_US_CommandCenter (Invalid = 0) and MI_Ghost_US_CommandCenter_Invalid (Invalid = 1). Plug in
+the Command Center textures and tune Opacity.
 
-4. Reparent GA_Build_US_Command_Center to GA_BuildBuilding_Base, then set its Class Defaults:
-WorkAreaClass, ConstructionUnitClass, and ConstructionCost.
+4. In BP WorkArea_US_Command_Center, set the Mesh's slot 0 material to MI_Ghost_US_CommandCenter. Set
 
-5. Event-graph only step: in GA_Build_US_Command_Center, delete the two empty events (Event
-ActivateAbility and Event OnEndAbility). Otherwise they'd override the parent's logic and nothing would
-happen.
+TemporaryHighlightMaterial to MI_Ghost_US_CommandCenter_Invalid, and clear OriginalMaterial (or set it
+to the valid instance). Then adjust HighlightDuration if needed. OriginalMaterial matters because your
+Blueprint currently has a value saved there. If it still points at the blue material, the ghost would flip back to
+blue every time the red flash ends.
 
-6. Play test: select the Dozer and click the Command Center button. The ghost should follow the cursor. Left-
-click places it, and the Dozer should drive over and build. Right-click cancels.
+5. Play test: select the Dozer and click the Command Center button. The ghost should look like the real building
+but see-through. Over a blocked spot (no-build zone, overlapping building, enemy unit), its floor should turn
+red. After you drop it, check how the construction site looks while the Dozer builds.
